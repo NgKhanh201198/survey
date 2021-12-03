@@ -15,20 +15,22 @@ public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     @Value("${config.jwt.secretKey}")
-    public String JWT_SECRETKEY;
+    private String JWT_SECRETKEY;
 
     @Value("${config.jwt.expirationTime}")
-    public String JWT_EXPIRATIONTIME;
+    private int JWT_EXPIRATIONTIME;
 
     public String generateToken(Authentication authentication) {
         // Truy xuất thông tin người dùng đang đặng nhập.
-        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();// xác thực
+        UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-        return Jwts.builder()
+        String jwt = Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
-                .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + JWT_EXPIRATIONTIME))
-                .signWith(SignatureAlgorithm.HS512, JWT_SECRETKEY).compact();
+                .setIssuedAt(new Date(System.currentTimeMillis()))
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATIONTIME))
+                .signWith(SignatureAlgorithm.HS512, JWT_SECRETKEY)
+                .compact();
+        return jwt;
     }
 
     public String getUsernameFromJWT(String token) {

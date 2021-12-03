@@ -15,13 +15,10 @@ public class UserEntity {
 
     @Column(name = "username",length = 20)
     private String username;
-    @Column(name = "password",length = 20)
+    @Column(name = "password")
     private String password;
     @Column(name = "role",length = 10)
     private String role;
-
-//    @OneToOne(mappedBy = "user")
-//    private ResultEntity result;
 
     public UserEntity() {
         super();
