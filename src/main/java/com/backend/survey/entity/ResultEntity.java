@@ -16,7 +16,7 @@ public class ResultEntity {
     @Column(name = "numberOfCorrectAnswers")
     private int numberOfCorrectAnswers;
     @Column(name = "totalScore")
-    private int totalScore;
+    private float totalScore;
 
     @OneToOne
     @JoinColumn(name = "userId", unique = true)

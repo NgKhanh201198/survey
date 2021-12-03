@@ -20,6 +20,9 @@ public class UserEntity {
     @Column(name = "role",length = 10)
     private String role;
 
+//    @OneToOne(mappedBy = "user")
+//    private ResultEntity result;
+
     public UserEntity() {
         super();
     }
