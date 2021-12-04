@@ -8,7 +8,6 @@ import com.backend.survey.response.MessageResponse;
 import com.backend.survey.services.IUserService;
 import com.backend.survey.services.UserDetailsImpl;
 import org.hibernate.exception.DataException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -49,7 +48,6 @@ public class AuthenticationController {
         }
 
         return ResponseEntity.ok(new JwtResponse(jwt));
-//        return ResponseEntity.ok(new JwtResponse("jwtaaaaaaaaaaaaaaaaa"));
     }
 
     @PostMapping("/register")

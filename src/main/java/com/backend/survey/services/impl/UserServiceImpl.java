@@ -3,15 +3,10 @@ package com.backend.survey.services.impl;
 import com.backend.survey.dto.UserDTO;
 import com.backend.survey.entity.UserEntity;
 import com.backend.survey.repository.IUserRepository;
-import com.backend.survey.response.MessageResponse;
+import com.backend.survey.response.UserResponse;
 import com.backend.survey.services.IUserService;
-import org.omg.CORBA.portable.ApplicationException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -21,6 +16,22 @@ public class UserServiceImpl implements IUserService {
     public UserServiceImpl(IUserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public void addUser(UserDTO userDTO) {
+    }
+
+    @Override
+    public UserResponse getById(long id) {
+        UserEntity userEntity = userRepository.getById(id);
+        UserResponse userResponse = new UserResponse(
+                userEntity.getUserId(),
+                userEntity.getUsername(),
+                userEntity.getPassword(),
+                userEntity.getRole()
+        );
+        return userResponse;
     }
 
     @Override

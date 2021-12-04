@@ -15,31 +15,29 @@ public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
     @Value("${config.jwt.secretKey}")
-    private String JWT_SECRETKEY;
+    private String JWT_SECRET_KEY;
 
     @Value("${config.jwt.expirationTime}")
-    private int JWT_EXPIRATIONTIME;
+    private int JWT_EXPIRATION_TIME;
 
     public String generateToken(Authentication authentication) {
-        // Truy xuất thông tin người dùng đang đặng nhập.
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
 
-        String jwt = Jwts.builder()
+        return Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATIONTIME))
-                .signWith(SignatureAlgorithm.HS512, JWT_SECRETKEY)
+                .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS512, JWT_SECRET_KEY)
                 .compact();
-        return jwt;
     }
 
     public String getUsernameFromJWT(String token) {
-        return Jwts.parser().setSigningKey(JWT_SECRETKEY).parseClaimsJws(token).getBody().getSubject();
+        return Jwts.parser().setSigningKey(JWT_SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
     }
 
     public boolean validateJwtToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(JWT_SECRETKEY).parseClaimsJws(authToken);
+            Jwts.parser().setSigningKey(JWT_SECRET_KEY).parseClaimsJws(authToken);
             return true;
         } catch (SignatureException e) {
             logger.error("Invalid JWT signature: {}", e.getMessage());

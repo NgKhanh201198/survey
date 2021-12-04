@@ -24,8 +24,7 @@ public class UserEntity {
         super();
     }
 
-    public UserEntity(long userId, String username, String password, String role) {
-        this.userId = userId;
+    public UserEntity(String username, String password, String role) {
         this.username = username;
         this.password = password;
         this.role = role;
