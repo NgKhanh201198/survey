@@ -6,17 +6,17 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class MessageResponse1<T> {
+public class DataResponse<T> {
     private Date timestamp;
     private int status;
     private String error;
     private List<T> data;
 
-    public MessageResponse1() {
+    public DataResponse() {
         super();
     }
 
-    public MessageResponse1(Date timestamp, int status, String error, List<T> data) {
+    public DataResponse(Date timestamp, int status, String error, List<T> data) {
         this.timestamp = timestamp;
         this.status = status;
         this.error = error;

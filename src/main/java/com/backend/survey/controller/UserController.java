@@ -1,7 +1,7 @@
 package com.backend.survey.controller;
 
 import com.backend.survey.response.MessageResponse;
-import com.backend.survey.response.MessageResponse1;
+import com.backend.survey.response.DataResponse;
 import com.backend.survey.response.UserResponse;
 import com.backend.survey.services.IUserService;
 import org.springframework.http.HttpStatus;
@@ -30,7 +30,7 @@ public class UserController {
             List<UserResponse> list = new ArrayList<>();
             list.add(userService.getById(id));
 
-            return ResponseEntity.ok(new MessageResponse1(new Date(), HttpStatus.OK.value(), HttpStatus.OK.name(), list));
+            return ResponseEntity.ok(new DataResponse(new Date(), HttpStatus.OK.value(), HttpStatus.OK.name(), list));
         } catch (Exception exception) {
             return ResponseEntity.badRequest().body(new MessageResponse(new Date(), HttpStatus.BAD_REQUEST.value(),
                     HttpStatus.BAD_REQUEST.name(), exception.getMessage()));
