@@ -16,8 +16,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.servlet.http.HttpServletResponse;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -57,10 +55,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeHttpRequests()
-                .antMatchers("/api/v1/register","/api/v1/login").permitAll()
-                .antMatchers("/api/v1/user/**").permitAll()
+                .antMatchers("/api/v1/register", "/api/v1/login").permitAll()
+                .antMatchers("/api/v1/user/**").hasAuthority("admin")
                 .antMatchers("/api/v1/question/**").permitAll()
-                .antMatchers("/api/v1/result/**").permitAll()
+                .antMatchers("/api/v1/result/**").hasAnyAuthority("user", "admin")
                 .antMatchers("/api/v1/answer/**").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
