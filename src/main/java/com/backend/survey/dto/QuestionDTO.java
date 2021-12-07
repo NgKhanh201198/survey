@@ -8,7 +8,7 @@ import java.util.List;
 public class QuestionDTO {
     private long questionId;
     private String question;
-    private List<AnswerDTO> listAnswer;
+        private List<AnswerDTO> listAnswer;
 
     public QuestionDTO() {
         super();
