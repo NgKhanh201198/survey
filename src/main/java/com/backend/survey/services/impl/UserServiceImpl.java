@@ -20,6 +20,12 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void addUser(UserDTO userDTO) {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setUsername(userDTO.getUsername());
+        userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        userEntity.setRole(userDTO.getRole());
+
+        userRepository.save(userEntity);
     }
 
     @Override

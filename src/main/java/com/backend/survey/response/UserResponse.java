@@ -1,11 +1,13 @@
 package com.backend.survey.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 @Data
 public class UserResponse {
     private long id;
     private String username;
+    @JsonIgnore
     private String password;
     private String role;
 
